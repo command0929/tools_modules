@@ -8,14 +8,12 @@ function shuffleString(str) {
   }
   return arr.join("");
 }
-function generateId(le) {
-  if(!isNaN(le) && (1 < le <= 52)) {
-  var characters = "A1B2C3D4E5F6G7H8I9J0K1L2M3N4O5P6Q7R8S9T0U1V2W3X4Y5Z6";
-  var shuffled = shuffleString(characters);
-  var length = le;
-  var start = Math.floor(Math.random() * (shuffled.length - length));
-  return shuffled.substring(start, start + length) + "";
-  }else{
+function generateId(length) {
+  if (!isNaN(length) && (0 < length && length <= 52)) {
+    var characters = "A1B2C3D4E5F6G7H8I9J0K1L2M3N4O5P6Q7R8S9T0U1V2W3X4Y5Z6";
+    var shuffled = shuffleString(characters).substring(0, length);
+    return shuffled;
+  } else {
     return undefined;
   }
 }
@@ -42,7 +40,7 @@ function rank(path2, max, type, check, score, score2, score3) {
     var ranking = [];
     var rp = [];
     var pF = java.io.File("sdcard/"+path2).listFiles();
-    for (var i = 0; i < playerFiles.length; i++) {
+    for (var i = 0; i < pF.length; i++) {
         var playerData = FileStream.read(pF[i]);
         rp.push(playerData);
     }
@@ -50,8 +48,8 @@ function rank(path2, max, type, check, score, score2, score3) {
       try{
         var playerObj = JSON.parse(rp[j]);
         }catch(e) {}
-        if(playerObj[check] == 0) {
-          }else{
+        if(playerObj == undefined) {
+ }else if(playerObj[check] != 0){
             var score = {};
             if(playerObj[score2] != undefined && playerObj[score3] != undefined) {
              score = {
