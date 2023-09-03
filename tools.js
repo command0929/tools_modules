@@ -16,15 +16,25 @@ function generateId(le) {
   var start = Math.floor(Math.random() * (shuffled.length - length));
   return shuffled.substring(start, start + length) + "";
   }else{
-    return NaN;
+    return undefined;
   }
 }
 var json = {
   read: function(path) {
-    return JSON.parse(FileStream.read('sdcard/'+path));
+  try{
+    var readV = JSON.parse(FileStream.read('sdcard/'+path));
+    }catch(e) {
+    throw new TypeError('불러올 데이터가 옳지 않습니다.\n데이터 : sdcard/'+path);
+    }
+    return readV;
   },
   write: function(path1, input) {
-    FileStream.write('sdcard/'+path1, JSON.stringify(input));
+  try{
+  var writeV = JSON.stringify(input);
+  }catch(e) {
+  throw new TypeError('저장할 데이터가 올바르지 않습니다.');
+  }
+    FileStream.write('sdcard/'+path1, writeV);
   }
 };
 function rank(path2, max, type, check, score, score2, score3) {
