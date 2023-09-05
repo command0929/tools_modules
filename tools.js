@@ -49,25 +49,27 @@ function rank(path2, max, type, check, score, score2, score3) {
         var playerObj = JSON.parse(rp[j]);
         }catch(e) {}
         if(playerObj == undefined) {
- }else if(playerObj[check] != 0){
-            var score = {};
+          throw new TypeError('파일을 불러올 수 없음');
+        }
+ if(playerObj[check] != 0){
+            var score1 = {};
             if(playerObj[score2] != undefined && playerObj[score3] != undefined) {
-             score = {
+             score1 = {
                 name: playerObj.name,
                 score: playerObj[score] + playerObj[score2] + playerObj[score3]
             };
             }else if(playerObj[score2] != undefined) {
-             score = {
+             score1 = {
                 name: playerObj.name,
                 score: playerObj[score] + playerObj[score2]
             };
             }else{
-             score = {
+             score1 = {
                 name: playerObj.name,
                 score: playerObj[score]
             };
             }
-            ranking.push(score);
+            ranking.push(score1);
     }
     }
     ranking.sort(function (a, b) {
@@ -84,13 +86,7 @@ function rank(path2, max, type, check, score, score2, score3) {
   return result;
 }
 function random(str0) {
-  var chv = 0;
-  if(Math.random()*100 < str0) {
-    chv = 'true';
-  }else{
-    chv = 'false';
-  }
- return Boolean(chv);
+  return (Math.random()*100 < Number(str0));
 }
 function rv() {
   return (Math.random() * 100);
